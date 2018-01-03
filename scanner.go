@@ -1,4 +1,4 @@
-package Scanner
+package pqscanenr
 
 import (
 	"database/sql"
