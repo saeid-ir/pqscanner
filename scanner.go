@@ -2,8 +2,8 @@ package pqscanenr
 
 import (
 	"database/sql"
-	"reflect"
 	"encoding/json"
+	"reflect"
 )
 
 // Costume scanner type
@@ -54,11 +54,7 @@ func rows2Interfaces(rows *sql.Rows) (resultsSlice []map[string]interface{}, err
 func (scanner *Scanner) QueryInterface(sqlStr string, args ...interface{}) ([]map[string]interface{}, error) {
 	var rows *sql.Rows
 	var err error
-	if len(args) > 0 {
-		rows, err = scanner.Query(sqlStr, args)
-	} else {
-		rows, err = scanner.Query(sqlStr)
-	}
+	rows, err = scanner.Query(sqlStr, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -68,11 +64,7 @@ func (scanner *Scanner) QueryInterface(sqlStr string, args ...interface{}) ([]ma
 func (scanner *Scanner) QueryJson(sqlStr string, args ...interface{}) (*json.RawMessage, error) {
 	var jsonData *json.RawMessage
 	var row *sql.Row
-	if len(args) > 0 {
-		row = scanner.QueryRow(sqlStr, args)
-	} else {
-		row = scanner.QueryRow(sqlStr)
-	}
+	row = scanner.QueryRow(sqlStr, args...)
 	err := row.Scan(&jsonData)
 	if err != nil {
 		return nil, err
